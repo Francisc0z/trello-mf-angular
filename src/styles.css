@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+    --ds-surface: #1D2125;
+    --ds-text-subtle: #9FADBC;
+    --create-menu-button-background:#579dff;
+    --create-menu-button-color:#1d2125;
+    --dynamic-background: var(--ds-surface, #FFFFFF);
+    --dynamic-background-transparent: hsla(206,13.7%,10%,0.9);
+    --dynamic-button: transparent;
+    --dynamic-button-hovered: #A6C5E229;
+    --dynamic-button-pressed: #BFDBF847;
+    --dynamic-button-highlighted: #DCDFE4;
+    --dynamic-button-highlighted-text: #172B4D;
+    --dynamic-button-highlighted-hovered: #FFFFFF;
+    --dynamic-nav-item: var(--ds-background-neutral-subtle, transparent);
+    --dynamic-nav-item-hovered: var(--ds-background-neutral-subtle-hovered, #a1bdd914);
+    --dynamic-nav-item-pressed: var(--ds-background-neutral-subtle-pressed, #a6c5e229);
+    --dynamic-icon: var(--ds-icon-subtle, #626F86);
+    --dynamic-text: var(--ds-text-subtle, #44546F);
+    --dynamic-text-transparent: hsla(211,18%,68%,0.16);
+  }
+
+.headerType{
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.buttons {
+    background-color: var(--create-menu-button-background);
+    color: var(--create-menu-button-color);
+}
+
+/* .sidebarAnimation{
+    background-color: red;
+    transform: translate3d(0%, 100, 100);
+} */

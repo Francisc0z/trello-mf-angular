@@ -1,0 +1,33 @@
+my-angular-project/
+├── e2e/
+├── node_modules/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── card/
+│   │   │   │   ├── card.component.ts
+│   │   │   ├── navbar/
+│   │   │   │   ├── navbar.component.ts
+│   │   │   ├── sidebar/
+│   │   │   │   ├── sidebar.component.ts
+|   |   |── main/       
+│   │   │   ├── dashboard/
+│   │   │   │   ├── dashboard.component.ts
+│   │   ├── app.routes.module.ts
+│   │   ├── app.component.css
+│   │   ├── app.component.html
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   ├── assets/
+│   ├── environments/
+│   │   ├── environment.prod.ts
+│   │   ├── environment.ts
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── styles.css
+│   ├── test.ts
+├── angular.json
+├── package.json
+├── tsconfig.json
+├── tslint.json
