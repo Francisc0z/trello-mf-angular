@@ -1,0 +1,4 @@
+.navBarDash{
+    backdrop-filter: blur(4px);
+    background: var(--board-header-background-color);
+}

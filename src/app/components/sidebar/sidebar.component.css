@@ -1,0 +1,36 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.mainContainer {
+    /* position: absolute;
+    height: calc(100% - 50px); */
+}
+
+.header, .footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.content {
+    background-color: var(--dynamic-background-transparent);
+    color: var(--dynamic-text);;
+    height: 100%;
+}
+
+.letterTitle{
+    color: black;
+    background: linear-gradient(var(--ds-background-accent-magenta-bolder, #b22865), var(--ds-background-accent-magenta-subtle, #cd5a91));}
+
+.principalIcon{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: var(--ds-background-neutral, #091e420f);
+}
