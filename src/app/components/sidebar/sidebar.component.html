@@ -1,5 +1,5 @@
 <div class="mainContainer">
-        <div class="content" style="width: 295px;  min-height: calc(100vh - 50px);">
+        <div class="content" style="width: 295px;  min-height: calc(100vh - 50px);" [ngClass]="!showSidebar ? 'hideSidebar' : ''">
             <div class="flex items-center py-[8px] px-[12px]" style="border-bottom: 1px solid var(--dynamic-text-transparent, #dfe1e6);">
                 <div class="w-[32px] h-[32px] principalIcon">
                     <div class="flex cursor-pointer items-center justify-center w-full h-full text-[20px] font-bold letterTitle">E</div>
@@ -8,7 +8,7 @@
                     <a href="" class="font-semibold text-[14px]">Espacio de trabajo de Trello</a>
                     <p class="inline-block mb-0 overflow-hidden text-[12px] text-ellipsis break-words">Gratuito</p>
                 </div>
-                <button><img src="https://trello.com/assets/58243262833f693f6101.svg" alt=""></button>
+                <button (click)="showSidebar = !showSidebar"><img src="https://trello.com/assets/58243262833f693f6101.svg" alt=""></button>
             </div>
             <div class="py-[12px] px-[16px]">
                 <div class="flex h-[32px] items-center">

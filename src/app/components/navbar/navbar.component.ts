@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  navSublist: boolean = false;
   navItems: String[] = ["Espacios de trabajo", "Reciente", "Marcado", "Plantillas"];
 }

@@ -27,14 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="flex" style="padding: 15px;">
-        @for (item of columnList; track $index) {
-            <app-card style="margin-right: 15px;" cardName="{{item}}"></app-card>
-        }
-        <div (click)="addColumn()" style="color: white; padding: 20px 10px; background-color: #dcdfe45c;
-            height: 30px; width: 272px; border-radius: 7px; display: flex; align-items: center;
-             cursor: pointer;">
-            +  Añade otra lista
-        </div>
+    <div >
+        <app-card cdkDropListGroup style="margin-right: 15px;"></app-card>
     </div>
 </div>

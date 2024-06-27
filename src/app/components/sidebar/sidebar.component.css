@@ -34,3 +34,25 @@ html, body {
     border-radius: 4px;
     background-color: var(--ds-background-neutral, #091e420f);
 }
+
+.hideSidebar{
+    animation: translateSidebar 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes translateSidebar {
+    100% {
+        margin-left: -295px;
+    }
+}
+
+.showSidebar{
+    animation: translateSidebarShow 0.3s;
+    animation-fill-mode: forwards
+}
+
+@keyframes translateSidebarShow {
+    100% {
+        margin-left: -295px;
+    }
+}
