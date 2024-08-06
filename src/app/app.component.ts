@@ -4,12 +4,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'table',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent, NavbarComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: '<router-outlet></router-outlet>',
 })
 export class AppComponent {
-  title = 'trelloApp';
+  title = 'table';
 }

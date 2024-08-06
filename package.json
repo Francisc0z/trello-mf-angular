@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:trelloApp": "node dist/trello-app/server/server.mjs"
+    "serve:ssr:trelloApp": "node dist/trello-app/server/server.mjs",
+    "build:single-spa:trelloApp": "ng build trelloApp --configuration production",
+    "serve": "ng s --project trelloApp --disable-host-check --port 4206 --live-reload false"
   },
   "private": true,
   "dependencies": {
@@ -24,10 +26,13 @@
     "@angular/ssr": "^17.3.7",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
+    "single-spa": ">=4.0.0",
+    "single-spa-angular": "^9.1.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "17.0.2",
     "@angular-devkit/build-angular": "^17.3.7",
     "@angular/cli": "^17.3.8",
     "@angular/compiler-cli": "^17.3.0",
@@ -42,6 +47,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.38",
+    "style-loader": "^3.3.1",
     "tailwindcss": "^3.4.4",
     "typescript": "~5.4.2"
   }
