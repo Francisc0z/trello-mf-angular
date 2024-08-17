@@ -15,8 +15,8 @@ html, body {
 }
 
 .content {
-    background-color: var(--dynamic-background-transparent);
-    color: var(--dynamic-text);;
+    background-color: #ac4c7a;
+    color: #ffffff;;
     height: 100%;
 }
 

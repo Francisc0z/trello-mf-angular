@@ -24,6 +24,9 @@
     --dynamic-icon: var(--ds-icon-subtle, #626F86);
     --dynamic-text: var(--ds-text-subtle, #44546F);
     --dynamic-text-transparent: hsla(211,18%,68%,0.16);
+    --create-menu-button-background: rgba(255, 255, 255, 0.2);
+    --create-menu-button-background-hovered: rgba(255, 255, 255, 0.3);
+    --create-menu-button-background-active: rgba(255, 255, 255, 0.3);
   }
 
 .headerType{
@@ -32,7 +35,6 @@
 
 .buttons {
     background-color: var(--create-menu-button-background);
-    color: var(--create-menu-button-color);
 }
 
 /* .sidebarAnimation{
