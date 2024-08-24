@@ -3,6 +3,7 @@ import { CardComponent } from '../../components/card/card.component';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ListServiceService } from '../../components/services/list-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,8 +13,12 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
+  constructor(private listService : ListServiceService){
+
+  }
   columnList:string[]=['Lista de tareas', 'En proceso', 'Hecho'];
 
+  cards: string[] = [];
   ngOnInit(): void {
     const cardsTasks = {
       "cards": {
@@ -22,17 +27,8 @@ export class DashboardComponent implements OnInit{
         "Hecho": ["5", "22"]
       }
     }  
-    const cards = {
-      "cards": [
-        "Lista de tareas",
-        "En proceso",
-        "Hecho"
-      ]
-    }  
-    
-    localStorage.setItem('cards', JSON.stringify(cards));
     localStorage.setItem('cardsTasks', JSON.stringify(cardsTasks));
-
+    
   }
   addColumn():void{
     

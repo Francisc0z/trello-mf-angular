@@ -1,24 +1,48 @@
 <div class="flex flex-wrap" style="padding: 15px;">
-    @for (item of listSaved; track $index;) {
-        <div [cdkDropListConnectedTo]="listSaved" 
-        [cdkDropListData]="tasksList[item]" id="{{item}}" cdkDropList (cdkDropListDropped)="drop($event)" style="margin: 5px;" class="flex bg-[#f1f2f4] flex-col flex-grow-0 flex-shrink-0 self-start justify-between w-[272px] max-h-full pb-2 rounded-lg align-top whitespace-normal scroll-m-2">
+    @for (item of tasksList; track $index;) {
+        <div [cdkDropListConnectedTo]="tasksList" 
+        [cdkDropListData]="item.tasks" id="{{item.id}}" cdkDropList (cdkDropListDropped)="drop($event)" style="margin: 5px;" class="flex bg-[#f1f2f4] flex-col flex-grow-0 flex-shrink-0 self-start justify-between w-[272px] max-h-full pb-2 rounded-lg align-top whitespace-normal scroll-m-2">
             <div id="cardHeader" class="px-5 py-2.5 flex justify-between font-semibold items-center">
-                <p>{{item}}</p>
-                <span><svg width="16" height="16" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill="currentColor"></path></svg></span>
-            </div>
-            <div id="tasks" class="text-#22272B flow-root relative z-10 min-h-[24px] px-3 py-2 pt-2.5">
-                @for (task of tasksList[item]; track $index) {
-                    <div cdkDrag class="rounded-lg my-[10px] px-2.5 py-[5px] bg-[#ffffff] cursor-pointer shadow-[var(--ds-shadow-raised,0px_1px_1px_#091e4240,0px_0px_1px_#091e424f)] ">
-                        <p  style="cursor: grab;">{{task}}</p>
+                <p>{{item.listName}}</p>
+                <span style="cursor: pointer;" (click)="item.showOptions = !item.showOptions"><svg width="16" height="16" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill="currentColor"></path></svg></span>
+                @if (item.showOptions) {
+                    <div style="position: absolute;
+                    margin-left: 129px;
+                    margin-top: 55px;
+                    padding: 7px;
+                    background-color: white;
+                    border-radius: 10px; cursor: pointer; z-index: 50;" (click)="deleteList(item.id)">
+                        Eliminar lista
                     </div>
                 }
-                <app-add-task [cardName]="item"></app-add-task>
+            </div>
+            <div id="tasks" class="text-#22272B flow-root relative z-10 min-h-[24px] px-3 py-2 pt-2.5">
+                @for (task of item.tasks; track $index) {
+                    <div cdkDrag style="display: flex; justify-content: space-between;" class="task rounded-lg my-[10px] px-2.5 py-[5px] bg-[#ffffff] cursor-pointer shadow-[var(--ds-shadow-raised,0px_1px_1px_#091e4240,0px_0px_1px_#091e424f)] ">
+                        <p  style="cursor: grab;">{{task.name}}</p>
+                        <button class="deleteButton" (click)="delete(task._id)">X</button>
+                    </div>
+                }
+                <app-add-task [cardId]="item.id"></app-add-task>
             </div>
         </div>
     }
-    <div style="margin: 5px; color: white; padding: 20px 10px; background-color: #dcdfe45c;
+    <div *ngIf="!adding" style="margin: 5px; color: white; padding: 20px 10px; background-color: #dcdfe45c;
             height: 30px; width: 272px; border-radius: 7px; display: flex; align-items: center;
-             cursor: pointer;">
-            +  Añade otra lista
+            cursor: pointer;" (click)="addingListAction()">
+            <p>
+                +  Añade otra lista
+            </p> 
+    </div>
+    <div *ngIf="adding" style="margin: 5px; color: white; padding: 20px 10px; background-color: #dcdfe45c;
+            height: 70px; width: 272px; border-radius: 7px; display: flex; align-items: center;
+            cursor: pointer;" (click)="addingListAction()">
+            <div style="width: 100%;">
+                <input class="rounded-lg" style="background-color: ffffff; width: 100%; color: black;" [(ngModel)]="listName"  type="text" placeholder="Introduce un titulo para esta lista...">
+                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                    <button (click)="addListActionEnd()">Añadir tarjeta</button>
+                    <span style="cursor: pointer;" (click)="cancelListAction()">X</span>
+                </div>
+            </div>
     </div>
 </div>

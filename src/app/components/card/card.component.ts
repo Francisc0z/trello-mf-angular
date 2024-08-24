@@ -1,9 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Inject, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {FormsModule, NgForm} from '@angular/forms';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CardServiceService } from '../services/card-service.service';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { ListServiceService } from '../services/list-service.service';
+import { CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-card',
@@ -13,22 +15,76 @@ import { AddTaskComponent } from './add-task/add-task.component';
   styleUrl: './card.component.css'
 })
 
-export class CardComponent implements OnInit{
-  constructor(private cardService: CardServiceService){}
-  listSaved: any;
-  tasksList:any;
+export class CardComponent implements OnInit, AfterViewChecked{
+  @ViewChildren(CdkDropList) dropLists!: QueryList<CdkDropList>;
+  
+  constructor(private cardService: CardServiceService, private listService:ListServiceService, private cdRef: ChangeDetectorRef){{}}
+  listSaved: any = [];
+  tasksList:any = [];
   actualTaskList: string[] = []
   columnList:string[]=[];
   addingTaskStart:boolean=false;
   name:string='';
   message:any;
+  prevent: boolean = false;
+  adding: boolean = false;
+  listName: string = "";
+
+  ngAfterViewInit() {
+    console.log('cdkDropListData:', this.dropLists);
+  }
+  ngAfterViewChecked() {
+
+    this.cdRef.detectChanges();
+    console.log("hola");
+    
+ }
   ngOnInit(): void {
-    this.listSaved = JSON.parse(localStorage.getItem('cards') || '').cards;      
-    this.tasksList =  JSON.parse(localStorage.getItem('cardsTasks') || '').cards;
+    let tareasAux:any = [];
+    this.listService.read().subscribe(
+      (data:any) => {
+        
+        this.listSaved = data.data;
+        this.listSaved.forEach((e:any) => {
+          e.showOptions = false;
+        });
+      },
+      (error) => {
+        console.error('Error al hacer la solicitud:', error);
+      }
+    );
+    this.cardService.read().subscribe(
+      (data:any) => {        
+        this.listSaved.forEach((a:any)=>{
+          data.data.forEach((e:any) => {
+            if(a.id == e.list_id){
+              tareasAux.push(e)
+            }
+          });
+          this.tasksList.push({listName: a.name, id: a.id, tasks: tareasAux });  
+          tareasAux = [];        
+        })
+        console.log(this.tasksList);
+        
+      },
+      (error) => {
+        console.error('Error al hacer la solicitud:', error);
+      }
+
+    );
+  
     
     this.cardService.currentMessage.subscribe(message => {
+      
       this.message = message;
-      this.addTaskActionEnd(message.task, message.listName);
+      console.log(this.prevent);
+      
+      if(this.prevent){
+        this.addTaskActionEnd(message.task, message.listId);
+        this.prevent = false;
+      }else{
+        this.prevent = true;
+      }
       
     });
 
@@ -36,12 +92,17 @@ export class CardComponent implements OnInit{
   }
 
   public addTaskActionEnd(task:string, listName:string): void{
-    console.log(listName, task);
+    console.log("que hace");
     
-    this.tasksList[listName].push(task);
+    this.cardService.currentMessage.subscribe(message => {
+      window.location.href =  '/table';
+    })
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log("se ejecuta");
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -52,5 +113,47 @@ export class CardComponent implements OnInit{
         event.currentIndex
       );
     }
+  }
+
+  delete(cardId:string){
+    this.cardService.delete(cardId).subscribe(
+      (data:any) => { window.location.href =  '/table'; })
+  }
+  addingListAction(){ 
+    this.adding = true;
+  }
+
+  cancelListAction(){
+    this.adding = false;
+    this.listName = "";
+  }
+
+  addListActionEnd(){
+    this.addList(this.listName);
+    this.adding = true;
+    this.listName = "";
+  }
+
+  addList(listName:string){
+    this.listService.add(listName).subscribe(
+      (data:any) => {
+        window.location.href =  '/table';
+      },
+      (error) => {
+        console.error('Error al hacer la solicitud:', error);
+      }
+    );
+  }
+
+  deleteList(listId: string){
+    console.log(listId);
+    this.listService.delete(listId).subscribe(
+      (data:any) => {
+        window.location.href =  '/table';      
+      },
+      (error) => {
+        console.error('Error al hacer la solicitud:', error);
+      }
+    );
   }
 }

@@ -13,7 +13,7 @@ export class AddTaskComponent {
   constructor(private cardService:CardServiceService){
 
   }
-  @Input() cardName: string='';
+  @Input() cardId: string='';
 
   addingTaskStart:boolean = false;
   name:string='';
@@ -26,8 +26,12 @@ export class AddTaskComponent {
     this.addingTaskStart=false;
   }
 
-  addTaskActionEnd() {
-    this.cardService.changeMessage(this.name, this.cardName);
+  addTaskActionEnd() {        
+    let taskAdded:any = {name:this.name, list_id:this.cardId}
+    this.cardService.create(taskAdded).subscribe((data:any) => { 
+      this.cardService.changeMessage(this.name, this.cardId);
+      window.location.href =  '/table';
+    }) 
     this.name='';
     this.addingTaskStart=false;
   }

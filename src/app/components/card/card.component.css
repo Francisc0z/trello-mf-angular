@@ -1,0 +1,6 @@
+.deleteButton{
+    display: none;
+}
+.task:hover .deleteButton{
+    display: block;
+}
