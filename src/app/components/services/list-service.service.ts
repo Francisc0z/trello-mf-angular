@@ -12,8 +12,10 @@ export class ListServiceService {
 
   read(): Observable<any> {
     console.log("whas");
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
     });
     
     // Correcto uso de `HttpHeaders` en la solicitud
@@ -21,8 +23,10 @@ export class ListServiceService {
   }
 
   add(listName:string): Observable<any> {
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
     });
     
     // Correcto uso de `HttpHeaders` en la solicitud
@@ -30,8 +34,10 @@ export class ListServiceService {
   }
 
   delete(listId:string): Observable<any> {
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
     });
     
     // Correcto uso de `HttpHeaders` en la solicitud

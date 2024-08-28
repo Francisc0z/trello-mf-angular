@@ -30,7 +30,7 @@ export class AddTaskComponent {
     let taskAdded:any = {name:this.name, list_id:this.cardId}
     this.cardService.create(taskAdded).subscribe((data:any) => { 
       this.cardService.changeMessage(this.name, this.cardId);
-      window.location.href =  '/table';
+      //window.location.href =  '/table';
     }) 
     this.name='';
     this.addingTaskStart=false;

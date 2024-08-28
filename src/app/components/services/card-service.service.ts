@@ -21,8 +21,10 @@ export class CardServiceService {
   }
 
   create(cardAdded:any): Observable<any> {
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
     });
     console.log(cardAdded);
     
@@ -30,14 +32,20 @@ export class CardServiceService {
     return this.http.post<any>(`${this.apiUrl}/create`, cardAdded, { headers });
   }
   read(): Observable<any> {
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
+      
     });    
-    return this.http.post<any>(`${this.apiUrl}/read`, { headers });
+    console.log({headers});
+    return this.http.post<any>(`${this.apiUrl}/read`,{}, { headers });
   }
   delete(id:string): Observable<any> {
+    let token = localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      'token': token ? token : ''
     });    
     return this.http.post<any>(`${this.apiUrl}/delete`, {id} ,{ headers });
   }
