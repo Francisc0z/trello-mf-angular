@@ -49,4 +49,12 @@ export class CardServiceService {
     });    
     return this.http.post<any>(`${this.apiUrl}/delete`, {id} ,{ headers });
   }
+  moveCard(idCard: string, idList:string){
+    let token = localStorage.getItem('token')
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'token': token ? token : ''
+    });    
+    return this.http.post<any>(`${this.apiUrl}/update`, {idCard, idList} ,{ headers });
+  }
 }

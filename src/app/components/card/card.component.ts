@@ -29,15 +29,13 @@ export class CardComponent implements OnInit, AfterViewChecked{
   prevent: boolean = false;
   adding: boolean = false;
   listName: string = "";
+  connectedLists:any=[];
 
   ngAfterViewInit() {
     console.log('cdkDropListData:', this.dropLists);
   }
   ngAfterViewChecked() {
-
-    this.cdRef.detectChanges();
-    console.log("hola");
-    
+    this.cdRef.detectChanges();    
  }
   ngOnInit(): void {
     let tareasAux:any = [];
@@ -62,6 +60,7 @@ export class CardComponent implements OnInit, AfterViewChecked{
             }
           });
           this.tasksList.push({listName: a.name, id: a.id, tasks: tareasAux });  
+          this.connectedLists = this.tasksList.map((list:any) => list.id);
           tareasAux = [];        
         })
         console.log(this.tasksList);
@@ -101,17 +100,20 @@ export class CardComponent implements OnInit, AfterViewChecked{
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log("se ejecuta");
-    
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
+    } else {      
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+      this.cardService.moveCard(event.item.element.nativeElement.id, event.container.id).subscribe(
+        (data:any) => {
+          console.log("paco");
+          
+        })
     }
   }
 

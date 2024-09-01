@@ -10,4 +10,11 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   navSublist: boolean = false;
   navItems: String[] = ["Espacios de trabajo", "Reciente", "Marcado", "Plantillas"];
+
+  logout(){
+    console.log("yea");
+    
+    localStorage.removeItem('token');
+    window.location.href =  '/login';
+  }
 }

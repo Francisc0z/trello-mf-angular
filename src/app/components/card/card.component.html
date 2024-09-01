@@ -1,6 +1,6 @@
 <div class="flex flex-wrap" style="padding: 15px;">
     @for (item of tasksList; track $index;) {
-        <div [cdkDropListConnectedTo]="tasksList" 
+        <div [cdkDropListConnectedTo]="connectedLists" 
         [cdkDropListData]="item.tasks" id="{{item.id}}" cdkDropList (cdkDropListDropped)="drop($event)" style="margin: 5px;" class="flex bg-[#f1f2f4] flex-col flex-grow-0 flex-shrink-0 self-start justify-between w-[272px] max-h-full pb-2 rounded-lg align-top whitespace-normal scroll-m-2">
             <div id="cardHeader" class="px-5 py-2.5 flex justify-between font-semibold items-center">
                 <p>{{item.listName}}</p>
@@ -18,7 +18,7 @@
             </div>
             <div id="tasks" class="text-#22272B flow-root relative z-10 min-h-[24px] px-3 py-2 pt-2.5">
                 @for (task of item.tasks; track $index) {
-                    <div cdkDrag style="display: flex; justify-content: space-between;" class="task rounded-lg my-[10px] px-2.5 py-[5px] bg-[#ffffff] cursor-pointer shadow-[var(--ds-shadow-raised,0px_1px_1px_#091e4240,0px_0px_1px_#091e424f)] ">
+                    <div id="{{task._id}}" cdkDrag style="display: flex; justify-content: space-between;" class="task rounded-lg my-[10px] px-2.5 py-[5px] bg-[#ffffff] cursor-pointer shadow-[var(--ds-shadow-raised,0px_1px_1px_#091e4240,0px_0px_1px_#091e424f)] ">
                         <p  style="cursor: grab;">{{task.name}}</p>
                         <button class="deleteButton" (click)="delete(task._id)">X</button>
                     </div>
